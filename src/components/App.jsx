@@ -5,11 +5,35 @@ import { nanoid } from 'nanoid';
 import { Filter } from './filter/Filter';
 import { Container, Heading, Title } from './App.styled';
 
+const LOCAL_API_KEY = 'contacts';
+
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const localContacts = localStorage.getItem(LOCAL_API_KEY);
+
+    if (localContacts) {
+      const contactsToJson = JSON.parse(localContacts);
+
+      this.setState({
+        contacts: contactsToJson,
+      });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    const currentContacts = this.state.contacts;
+    const contactsToString = JSON.stringify(currentContacts);
+    const prevContacts = prevState.contacts;
+
+    if (prevContacts.length !== currentContacts.length) {
+      localStorage.setItem(LOCAL_API_KEY, contactsToString);
+    }
+  }
 
   checkContactAvailability = newData => {
     const { contacts } = this.state;
@@ -40,7 +64,7 @@ export class App extends Component {
       contacts: filteredContacts,
     });
   };
-  
+
   changeFilter = event => {
     this.setState({
       filter: event.currentTarget.value,
