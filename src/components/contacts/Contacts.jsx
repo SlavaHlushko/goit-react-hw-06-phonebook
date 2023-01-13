@@ -1,30 +1,41 @@
-import PropTypes from 'prop-types';
-import { List, ListItem } from './Contacts.styled';
-import { Button } from 'components/inputForm/InputForm.styled';
+import { useSelector, useDispatch } from 'react-redux';
+import { delContact } from 'redux/contactsSlice';
+import { getContacts, getFilter } from 'redux/selectors';
 
-export const Contacts = ({ contacts, onDelete }) => {
+import { Ul, Li, PContact, Button } from 'components/contacts/Contacts.styled';
+
+export const Contacts = () => {
+  const dispatch = useDispatch();
+  const { contactsList } = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
+  const getFilterContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
+    return contactsList.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
+  const deleteContact = contactId => {
+    dispatch(delContact(contactId));
+  };
+  const contacts = getFilterContacts();
+
   return (
-    <List>
-      {contacts.map(({ name, id, number }) => {
+    <Ul>
+      {contacts.length === 0 && <p>There is not any contacts</p>}
+      {contacts.map(({ name, number, id }) => {
         return (
-          <ListItem key={id}>
-            <span>{name}:</span>
-            <span>{number}</span>
-            <Button onClick={() => onDelete(id)}>Delete</Button>
-          </ListItem>
+          <Li key={id}>
+            <PContact>
+              {name}: {number}
+              <Button type="button" onClick={() => deleteContact(id)}>
+                Delete
+              </Button>
+            </PContact>
+          </Li>
         );
       })}
-    </List>
+    </Ul>
   );
-};
-
-Contacts.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.exact({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    })
-  ),
-  onDelete: PropTypes.func.isRequired,
 };

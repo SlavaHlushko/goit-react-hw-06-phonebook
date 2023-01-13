@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
-export const List = styled.ul`
-  list-style-type: none;
-  padding: 10px;
-  width: 500px;
+export const Ul = styled.ul`
+  margin-left: 40px;
+  list-style-type: decimal;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 500;
 `;
 
-export const ListItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  justify-content: space-between;
-  margin-top: 0;
-  margin-bottom: 10px;
+export const Li = styled.li``;
+
+export const PContact = styled.p``;
+
+export const Button = styled.button`
+  margin-left: 10px;
+  font-size: 14px;
+  cursor: pointer;
 `;

@@ -1,30 +1,33 @@
 import styled from 'styled-components';
 
-export const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: flex-start;
-  padding: 10px;
-  margin-bottom: 30px;
-`;
+import { Form, Field, ErrorMessage } from 'formik';
 
-export const Lable = styled.label`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 200px;
+export const FormContact = styled(Form)`
+  padding: 20px;
+  width: 500px;
 `;
-
-export const Input = styled.input`
+export const LabelName = styled.label`
+  text-align: left;
+  margin-bottom: 20px;
+`;
+export const Input = styled(Field)`
+  padding: 3px;
+  display: block;
   width: 300px;
-  font-size: 20px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  text-align: left;
+  margin: 0;
 `;
-
+export const Error = styled(ErrorMessage)`
+  /* position: absolute; */
+  margin-top: -30px;
+  margin-left: 320px;
+  width: 300px;
+  text-align: left;
+  font-size: 16px;
+  color: red;
+`;
 export const Button = styled.button`
-  padding: 6px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  width: 90px;
+  text-align: left;
+  margin: 0;
 `;
